@@ -18,7 +18,12 @@ const App = ({}: AppProps) => {
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({
     target: { value },
-  }) => (value === '' || /^[0-9\b]+$/.test(value)) && setN(value);
+  }) => {
+    if (value === '' || /^[0-9\b]+$/.test(value)) {
+      setGrid([]);
+      setN(value);
+    }
+  };
 
   const getRandomInt = (min: number, max: number): number =>
     Math.floor(Math.random() * (max - min + 1)) + min;
