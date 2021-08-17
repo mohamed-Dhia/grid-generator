@@ -1,7 +1,0 @@
-{
-  "imports": {
-    "react": "./react.js",
-    "react-component-export-image": "./react-component-export-image.js",
-    "react-dom": "./react-dom.js"
-  }
-}
