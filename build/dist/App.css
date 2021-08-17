@@ -36,17 +36,15 @@ button {
   border-radius: 16px 0px;
   border-bottom: 3px solid #4f8eed;
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 300;
   transition: 0.2s ease-out;
   font-family: Roboto;
 }
 
 ::placeholder {
   color: #4f8eed;
-  font-family: Roboto;
-  font-weight: bold;
 }
 
 .grid-container {
-  margin-top: 2rem;
+  margin-top: 20px;
 }

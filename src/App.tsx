@@ -1,41 +1,65 @@
-import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
+import React, {
+  useState,
+  ChangeEventHandler,
+  MouseEventHandler,
+  useRef,
+} from 'react';
+import reactComponentExportImage from 'react-component-export-image';
+
+import GridElement from './GridElement';
 import './App.css';
 
 interface AppProps {}
 
-function App({}: AppProps) {
-  // Create the count state.
-  const [count, setCount] = useState(0);
-  // Create the counter (+1 every second).
-  useEffect(() => {
-    const timer = setTimeout(() => setCount(count + 1), 1000);
-    return () => clearTimeout(timer);
-  }, [count, setCount]);
-  // Return the App component.
+const App = ({}: AppProps) => {
+  const [n, setN] = useState<string>('');
+  const [grid, setGrid] = useState<number[]>([]);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  const handleChange: ChangeEventHandler<HTMLInputElement> = ({
+    target: { value },
+  }) => (value === '' || /^[0-9\b]+$/.test(value)) && setN(value);
+
+  const getRandomInt = (min: number, max: number): number =>
+    Math.floor(Math.random() * (max - min + 1)) + min;
+
+  const handleClick: MouseEventHandler<HTMLButtonElement> = () =>
+    n && setGrid(Array.from({ length: +n }, () => getRandomInt(-100, 100)));
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <p>
-          Page has been open for <code>{count}</code> seconds.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </p>
-      </header>
+    <div className="app-container">
+      <div className="input-container">
+        <input
+          className="grid-size-input"
+          type="text"
+          value={n}
+          onChange={handleChange}
+          placeholder="Pick Your Grid Size"
+        />
+        <div className="btn-container">
+          <button className="btn" type="button" onClick={handleClick}>
+            Generate
+          </button>
+          {!!grid.length && (
+            <button
+              onClick={() =>
+                reactComponentExportImage.exportComponentAsJPEG(gridRef, {
+                  fileName: `${n}-grid`,
+                })
+              }
+            >
+              Export As JPEG
+            </button>
+          )}
+        </div>
+      </div>
+      <div className="grid-container" ref={gridRef}>
+        {grid.map((GridElementValue, i) => (
+          <GridElement key={`${i}${n}`} n={GridElementValue} />
+        ))}
+      </div>
     </div>
   );
-}
+};
 
 export default App;
