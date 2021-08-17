@@ -3,15 +3,13 @@ import React, {
   ChangeEventHandler,
   MouseEventHandler,
   useRef,
+  FC,
 } from 'react';
 import reactComponentExportImage from 'react-component-export-image';
-
 import GridElement from './GridElement';
 import './App.css';
 
-interface AppProps {}
-
-const App = ({}: AppProps) => {
+const App: FC = () => {
   const [n, setN] = useState<string>('');
   const [grid, setGrid] = useState<number[]>([]);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -20,7 +18,7 @@ const App = ({}: AppProps) => {
     target: { value },
   }) => {
     if (value === '' || /^[0-9\b]+$/.test(value)) {
-      setGrid([]);
+      setGrid([]); // to avoid expensive rerenders
       setN(value);
     }
   };

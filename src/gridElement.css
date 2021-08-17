@@ -1,26 +1,4 @@
 .grid-item {
   border-radius: 35%;
   margin: auto 0.1rem;
-  animation-name: popAnimation;
-  animation-duration: 1.5s;
-  animation-timing-function: ease-out;
-  animation-delay: 0;
-  animation-direction: alternate;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-play-state: running;
-}
-
-@keyframes popAnimation {
-  0% {
-    transform: scale(0.3);
-  }
-
-  75% {
-    transform: scale(1.05);
-  }
-
-  100% {
-    transform: scale(1);
-  }
 }
